@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="utf-8">
+    	<title>qualitySCHU</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta name="description" content="Geosoftware II is a course at ifgi 2012-2013">
+    	<meta name="author" content="Matthias Pfeil">
+    	
+    	<link href="js/bootstrap/css/bootstrap.css" rel="stylesheet">
+    	<link href="js/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    	<link href="js/daterangepicker/daterangepicker.css" rel="stylesheet">
+    	<link href="js/bootstrap-wizard/src/bootstrap-wizard.css" rel="stylesheet">
+    	<link href="js/bigmodal/css/bigmodals.css" rel="stylesheet">
+    	<link href="js/select2/select2.css" rel="stylesheet">
+    	<link rel="stylesheet" href="js/leaflet/dist/leaflet.css" />
+    	<link href="css/style.css" rel="stylesheet">
+    	<link rel="stylesheet" href="js/leaflet/markercluster/dist/MarkerCluster.css" />
+    	<link rel="stylesheet" href="js/leaflet/markercluster/dist/MarkerCluster.Default.css" />
+
+    	<!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
+	
+    	<!-- Fav and touch icons -->
+		<link rel="shortcut icon" href="img/favicon.ico">
+    </head>
+    <body>
+    	<!-- Navigation bar at the top of the page -->
+		<div class="navbar navbar-inverse navbar-fixed-top" id="navbar">
+      		<div class="navbar-inner">
+        		<div class="container-fluid">
+	        		<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		        		<span class="icon-bar"></span>
+		        		<span class="icon-bar"></span>
+		        		<span class="icon-bar"></span>
+		        	</a>
+		        	<a class="brand" href="#">Coimbatore-air</a>
+		        	<div class="nav-collapse collapse" visible="iPhone">
+			        	<ul class="nav">
+			        		<li><a href="#getstartModal" id="getstart" role="button" data-toggle="modal">Getting started</a></li>
+			        		<li><a id="download" role="button" data-toggle="modal">Download</a></li>
+			        		<li><a href="#faqModal" id="faq" role="button" data-toggle="modal">FAQ</a></li>
+			        		<li><a href="#aboutModal" id="about" role="button" data-toggle="modal">About</a></li>                      
+						</ul>
+					</div>
+					<div class="control-group">
+					</div>
+					<span id="hint" class="label pull-right label-warning" style="visibility:hidden;"></span>
+				</div>
+			</div>
+		</div>
+    
+    	<!-- Map div -->
+		<div id="map">
+		</div>
+		
+		<!-- Sensor bar at the bottom of the page -->
+		<div class="container">
+			<div id="sensorbar" class="carousel slide">
+			  <ol class="carousel-inner">
+			    <li data-target="#sensorbar" data-slide-to="0" class="active"></li>
+			    <li data-target="#sensorbar" data-slide-to="1"></li>
+			  </ol>
+			  <!-- Carousel items -->
+			  <div class="carousel-inner">
+			  	<!-- cosm sensor bar-->
+			  	<div class="active item">
+					<div class="row-fluid" id="aqe">
+			    		<div class="span12">
+				    		<div class="row-fluid">
+					    		<div class="span6">
+						    		<div class="row-fluid">
+							    		<div class="span6">
+								    		<img id="overview" class="img-rounded sensorbar" src="img/info.png" style="width:70px; height:70px;"><h4 style="display:inline;" id="overviewForm"></h4>
+								    		<h4>Overview</h4>
+								    	</div>
+								    	<div class="span6">
+									    	<img id="tempHum" class="img-rounded sensorbar" src="img/temperature.png" style="width:70px; height:70px;"><h4 style="display:inline;" id="tempForm"></h4><h4 style="display:inline;" id="sepTempHum">°C / </h4><h4 style="display:inline;" id="humForm"></h4><h4 style="display:inline;" id="sepHum">%</h4>
+									    	<h4>Temperature / Humidity</h4>
+									    </div>
+									</div>
+								</div>
+								<div class="span6">
+									<div class="row-fluid">
+										<div class="span6">
+											<img id="no2" class="img-rounded sensorbar" src="img/no2.png" style="width:70px; height:70px;"><h4 style="display:inline;" id="no2Form"></h4><h4 style="display:inline;" id="humForm">Particle count</h4>
+											<h4>Particle number &lt;0.5 µm/0.01ft <sup>3</h4>
+										</div>
+										<div class="span6">
+											<img id="co" class="img-rounded sensorbar" src="img/co.png" style="width:70px; height:70px;"><h4 style="display:inline;" id="coForm"></h4><h4 style="display:inline;" id="humForm">Particle count</h4>
+											<h4>Particle number &gt;2.5 µm/0.01ft<sup>3</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>    
+			    </div>
+			    <!-- tnau_cbe sensor bar -->
+			    
+
+
+		<div class="item">
+					<div class="row-fluid" id="lanuv">
+			    		<div class="span12">
+				    		<div class="row-fluid">
+					    		<div class="span">
+						    		<div class="row-fluid">
+							    		<div class="span1">
+								    		<img id="overview" class="img-rounded sensorbar" src="img/info.png" style="width:60px; height:60px;"><h4 style="display:inline;" id="overviewForm"></h4>
+								    		<h5>Overview</h5>
+								    	</div>
+								    	<div class="span3">
+									    	<img id="tnau_cbeTempHum" class="img-rounded sensorbar" src="img/temperature.png" style="width:60px; height:60px;"><h5 style="display:inline;" id="tnau_cbeTempForm"></h5><h5 style="display:inline;" id="sepTempHum"> °C / </h5><h5 style="display:inline;" id="tnau_cbeHumForm"></h5><h5 style="display:inline;" id="tnau_cbeSepHum"> %</h5>
+									    	<h5>Temp. / Humidity</h5>
+									    </div>
+									    <div class="span3">
+									    	<img id="tnau_cbeWSpeed" class="img-rounded sensorbar" src="img/wind_velocity.png" style="width:60px; height:60px;"><h5 style="display:inline;" id="tnau_cbeWSpeedForm"></h5><h5 style="display:inline;" id="tnau_cbeWSpeedForm"> kmph</h5>
+									    	<h5>Wind speed</h5>
+									    </div>
+									    <div class="span3">
+									    	<img id="tnau_cbeWDire" class="img-rounded sensorbar" src="img/wind_direction.png" style="width:60px; height:60px;"><h5 style="display:inline;" id="tnau_cbeWDireForm"></h5><h5 style="display:inline;" id="tnau_cbeWDireForm"> Deg</h5>
+									    	<h5>Wind direction</h5>
+									    </div>
+									    <div class="span2">
+									    	<img id="tnau_cbeAtmPre" class="img-rounded sensorbar" src="img/wind_direction.png" style="width:60px; height:60px;"><h5 style="display:inline;" id="tnau_cbeAtmPreForm"></h5><h5 style="display:inline;" id="tnau_cbeAtmPreForm"> hpa</h5>
+									    	<h5>Atmospheric pressure</h5>
+									    </div>
+									</div>
+								</div>
+								<!--<div class="span6">
+						    		<div class="row-fluid">
+							    		<div class="span6">
+								    		<img id="tnau_cbeAtmPre" class="img-rounded sensorbar" src="img/atm_pressure.png" style="width:60px; height:60px;"><h5 style="display:inline;" id="tnau_cbeAtmPreForm"></h5><h5 style="display:inline;" id="humForm">µg/m<sup>3</sup></h5>
+								    		<h5>Atmospheric pressure</h5>
+								    	</div>
+								    	
+									</div>
+								</div>-->
+							</div>
+						</div>
+					</div>    
+			    </div>
+			  </div>
+			</div>
+		</div>
+		<!-- Download wizard -->
+		<div class="wizard" id="downloadWizard">
+		    <h1>Customize and download</h1>
+		 	
+		    <div class="wizard-card" data-onValidated="loadAvailableStations" data-cardname="service">
+		        <h3>Select the service</h3>
+		        <p>Please select first what kind of data (tnau_cbe or AQE) you want to download.</p>
+		        <select id="service" data-validate="somethingSelected">
+		        	<option value="" selected="selected"></option>
+			        <option value="tnau_cbe">tnau_cbe</option>
+			        <option value="cosmcosm">AirQualityEgg</option>
+			    </select>
+		    </div>
+		 
+		    <div class="wizard-card" data-onValidated="loadObservedProperties" data-cardname="procedures">
+		        <h3>Select the procedures</h3>
+		        <div class="wizard-input-section">
+		        	<p>Please select which available stations you want to download.</p>
+		        	<select id="procedures" data-validate="somethingSelected2" style="width:100%;" multiple>
+		        		<option value=""></option>
+			    	</select>
+			    </div>
+			    <div id="errorSection" class="alert alert-error hide">
+					Please select at least one station!
+				</div>
+		    </div>
+
+			<div class="wizard-card" data-onValidated="loadTimeFrame" data-cardname="obsProp">
+		        <h3>Select observed properties</h3>
+		        <div class="wizard-input-section">
+		        	<p>Please select which observed properties you want to download.</p>
+		        	<select id="obsProp" data-validate="somethingSelected3" style="width:100%;" multiple>
+		        		<option value=""></option>
+			    	</select>
+			    </div>
+			    <div id="errorSectionObsProp" class="alert alert-error hide">
+					Please select at least one observed property!
+				</div>
+		    </div>		    
+		 	
+		 	<div class="wizard-card" data-cardname="timeframe">
+		        <h3>Select the timeframe</h3>
+		        <div class="wizard-input-section">
+		        	<p>Please select the timeframe for the download.</p>
+		        	<div id="reportrangeDownload" class="pull-left">
+					    <i class="icon-calendar icon-large"></i>
+					    <span></span> <b class="caret"></b>
+					</div>
+			    </div>
+		    </div>
+
+		    <div class="wizard-success">
+				<div class="alert alert-success">
+					<strong>Click</strong> on your preferred format and download the data.
+				</div>
+				<div class="wizard-input-section">
+					<a id="hrefJSON" href="http://www.google.de" target="_blank"><img id="download" class="img-rounded" src="img/download.png" style="width:40px; height:40px;" /><h4 style="display:inline;" id="json">JSON</h4></a>
+					</br>
+					<a id="hrefXML" href="http://www.google.de" target="_blank"><img id="download" class="img-rounded" src="img/download.png" style="width:40px; height:40px;" /><h4 style="display:inline;" id="xml">XML</h4></a>
+					</br>
+					<a id="hrefPlain" href="http://www.google.de" target="_blank"><img id="download" class="img-rounded" src="img/download.png" style="width:40px; height:40px;" /><h4 style="display:inline;" id="plain">Plain</h4></a>
+					</br>
+					<a id="hrefXJSON" href="http://www.google.de" target="_blank"><img id="download" class="img-rounded" src="img/download.png" style="width:40px; height:40px;" /><h4 style="display:inline;" id="xjson">X-json</h4></a>
+					</br>
+					<a id="hrefSensorML" href="http://www.google.de" target="_blank"><img id="download" class="img-rounded" src="img/download.png" style="width:40px; height:40px;" /><h4 style="display:inline;" id="sensorML">sensorML</h4></a>
+				</div>
+				<a class="btn download-more-data">Download more data</a>
+				<span style="padding:0 10px">or</span>
+				<a class="btn im-done">Done</a>
+			</div>
+		</div>
+
+		<!-- FAQ Modal -->
+		<div id="faqModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faqModalLabel" aria-hidden="true">
+	    	<div class="modal-header">
+	    		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    		<h3 id="faqModalLabel">FAQ</h3>
+	    	</div>
+	    	<div class="modal-body">
+		    	<div class="accordion" id="accordion2">
+			    	<div class="accordion-group">
+				    	<div class="accordion-heading">
+					    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">What is an Air Quality Egg?</a>
+					    </div>
+					    <div id="collapseOne" class="accordion-body collapse">
+					        <div class="accordion-inner"> 
+                                An <b>Air Quality Egg</b> (AQE) is a low-cost sensor system which enables 
+                                every person to get information about air quality in his direct surroundings. 
+                                The air quality data is measured by different sensors.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">How does the data collection use AQEs work?</a>
+						</div>
+						<div id="collapseTwo" class="accordion-body collapse">
+							<div class="accordion-inner">
+                                The AQE is a sensor system composed of two components: 
+                                outdoor sensors and a base station (the egg itself). 
+                                Using an RF transmitter, the sensor data is going to be sent 
+                                wirelessly to the base station, which should be located inside. 
+                                The measured air quality data is sent to 
+                                <a href="https://cosm.com/" target="_blank">Cosm</a> (open source 
+                                data platform to store and access data) in real-time.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">Which sensors are available for AQEs?</a>
+						</div>
+						<div id="collapseThree" class="accordion-body collapse">
+							<div class="accordion-inner">
+                                The standard equipment includes an NO<sub>2</sub> sensor and a CO Sensor 
+                                as well as temperature and humidity sensors. Optionally, 
+                                additional sensors can be purchased at an extra charge, 
+                                like PM<sub>10</sub> or ozone/O<sub>3</sub>.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">To which target can the AQE data be used? </a>
+						</div>
+						<div id="collapseFour" class="accordion-body collapse">
+							<div class="accordion-inner">
+                                Because the measured concentrations of NO<sub>2</sub> and CO are most responsible 
+                                for the air pollution in urban areas, the collected data can help supporting
+                                the improvement of air quality, since areas which are particulary affected 
+                                by air pollution can be located much easier.
+                            </div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">What are the advantages of using AQEs?</a>
+						</div>
+						<div id="collapseFive" class="accordion-body collapse">
+							<div class="accordion-inner"> 
+							    With an air quality egg every person has the opportunity to participate in the conversation about air quality and learn about the current as well as long-term air quality in his near surroundings.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">What is tnau_cbe?</a>
+						</div>
+						<div id="collapseSix" class="accordion-body collapse">
+							<div class="accordion-inner">
+							        <p> 
+                                        <b>tnau_cbe</b> is an abbreviation for "<b>Landesamt für Natur, Umwelt und 
+                                        Verbraucherschutz NRW</b>" (The North Rhine-Westphalia State Environment Agency). The tnau_cbe maintains a large number of 
+                                        stations for measuring air quality, which are eqipped with 
+                                        additional sensors for measuring air quality.
+                                    </p>
+                                    <p>
+                                        For further information please have a look <a href="http://www.tnau_cbe.nrw.de/luft/temes/stat.htm" target="_blank">here</a>.
+                                    </p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven">Which values are being measured?</a>
+						</div>
+						<div id="collapseSeven" class="accordion-body collapse">
+							<div class="accordion-inner">
+							        <p>
+							        	For the <b>air quality egg</b> data following measurements are available:
+							        </p>
+							        <p>
+							        	<b>Temperature</b>, <b>humidity</b>, <b>nitrogen dioxide</b> and <b>carbon monoxide</b>.
+							        </p>
+							        <p>     
+						                Since the eggs could be located inside or outside a building, 
+						                the measured values could differ considerably, even though there 
+						                is only a short distance between two neighbouring eggs.
+							        </p>
+							        <p>
+							        	<b><a href="http://en.wikipedia.org/wiki/Temperature" target="_blank">Temperature</a></b> is measured in degree 
+							        	<a href="http://en.wikipedia.org/wiki/Celsius" target="_blank">Celsius</a> (°C) and 
+							        	<b><a href="http://en.wikipedia.org/wiki/Humidity" target="_blank">Humidity</a></b>
+							        	is measured in <a href="http://en.wikipedia.org/wiki/Percentage" target="_blank">percent</a> (%). 
+							        </p>
+							        <p>
+							        	The NO<sub>2</sub> and CO concentrations are both measured in 
+							        	<a href="http://en.wikipedia.org/wiki/Parts-per_notation" target="_blank">parts per billion</a>(ppb) and is converted into 
+							        	parts per million (ppm) to avoidbig and unreadable numbers.
+							        </p>
+							        <p>
+							        	<b>Nitrogen dioxide</b> (NO<sub>2</sub>) is produced as an intermediate in the industrial synthesis of nitric acid, millions of tons of which are produced each year. 
+							        	As it is a toxic gas, it is one of the most important air pollutants.
+							        	<br>Further information can be found 
+							        	<a href="http://en.wikipedia.org/wiki/Nitrogen_dioxide" target="_blank">here</a>.
+							        </p>
+							        <p>
+							        	<b>Carbon monoxide</b> (CO) is a chemical compound of carbon and oxygen. 
+							        	In higher concentrations it is toxic to humans and animals. It can 
+							        	for example result from the incomplete combustion of carbonaceous materials.
+							        	<br>Further information can be found 
+							        	<a href="http://en.wikipedia.org/wiki/Carbon_monoxide" target="_blank">here</a>.
+							        </p>
+							        <p>     
+							            In addition to this the <b>tnau_cbe</b> data include following measurements: 
+							        </p>
+							        <p>     
+							        	<b><a href="http://en.wikipedia.org/wiki/Nitrogen_monoxide" target="_blank">Nitrogen monoxide</a></b>, 
+							        	<b><a href="http://en.wikipedia.org/wiki/Sulfur_dioxide" target="_blank">sulfur dioxide</a></b>,
+							        	<b><a href="http://en.wikipedia.org/wiki/Particulates" target="_blank">dust</a></b>(particulates),
+							        	<b><a href="http://en.wikipedia.org/wiki/Ozone" target="_blank">ozone</a></b> and
+							        	<b><a href="http://en.wikipedia.org/wiki/Wind_velocity" target="_blank">wind velocity</a></b>.
+							        </p>
+
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEight">Has the visualized data been validated?</a>
+						</div>
+						<div id="collapseEight" class="accordion-body collapse">
+							<div class="accordion-inner">
+							<p>
+							In the table view you can easy distinguish validated data from non-validated data by the background color of the cell.
+							</p>
+							<p><b>Yellow:</b> not validated</p>							
+							<p><b>Green:</b> validated and no outlier</p>
+							<p><b>Red:</b> validated and outlier</p>
+							<p>
+							<br/>
+							<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/table_new.png"
+							alt = "Table view" />
+							</p>
+							<br/>
+							<p>
+							The same color code applies for the diagram.
+							</p>
+							<br/>
+							<p>
+							<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/diagram_new.png"
+							alt = "Diagram" />
+							</p>
+								<p>
+									In the table view you can easy distinguish validated data from non-validated data by the background color of the cell.
+								</p>
+								<p><b>Yellow:</b> not validated</p>							
+								<p><b>Green:</b> validated and no outlier</p>
+								<p><b>Red:</b> validated and outlier</p>
+								<p>
+								<br/>
+									<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/table_color_code.PNG"
+									alt = "Table view" />
+								</p>
+								<br/>
+								<p>
+									The same applies for the diagram, except it's not the background color but the color of the dots representing measurments.
+								</p>
+								<br/>
+								<p>
+									<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/diagram.PNG"
+									alt = "Diagram" />
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNine">What is meant by validation and how does it work?</a>
+						</div>
+						<div id="collapseNine" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<p>
+									In our case validation basically means finding and labeling outliers 
+									in the data we get from tnau_cbe and from the AQEs. This means no data will be deleted or changed.
+								</p>
+								<p>
+									It is also important to note that measurements labeled as outliers are not always errors 
+									in the measurements process. They may be valid observations indicating unusual events with 
+									unusual values which are labeled by the validation algorithm.
+								</p>
+								<p>
+									Outlier detection is done using the <a href="http://www.r-project.org/" target="_blank">R statistics software</a>.
+								</p>
+								<p>
+									It basically works like this: 
+								</p>
+								<p>
+									First of all the running <a href="http://en.wikipedia.org/wiki/Median" target="_blank">median</a> of a set of 
+									non-validated measurements is calculated. 
+									The window size depends on the used data (e.g. tnau_cbe or AQE).
+								</p>
+								<p>
+									For the validation itself we use a leftsided window ranging from x<SUB>i</SUB>  to x<SUB>i-window_size</SUB>. 
+									From the values inside this window we compute the <a href="http://en.wikipedia.org/wiki/Interquartile_range" target="_blank">interquartile range</a>.
+									Starting from the most recent measurement we check if the measured value is smaller than 
+									the <b>running median &#x2212; 1,5 &#215; interquartile range </b> or larger than the <b>running median + 1,5 &#215; interquartile range</b>. 
+									If that is the case the measurement is labeled as an outlier.
+								</p>
+								<p>
+									The validation of the tnau_cbe data runs daily at 1:42 AM (UTC+2) and the validation of the COSM data daily at 12:22 PM (UTC+2).
+								</p>
+							</div>
+						</div>
+					</div>
+                    <div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTen">How do I view a table of the data?</a>
+						</div>
+						<div id="collapseTen" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<p>
+	                            	To view a table of the data, click on one of the corresponding symbols below the map visualizing the different sensors.
+	                            </p>
+	                            <p>
+	                            	In the table view you can choose a measurement period. The table then shows all the values which have been measured in this period of time by the different sensors. You can distinguish validated and non-validated data and easily detect outliers by the background color of the cell.
+	                            </p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEleven">How do I view a diagram of the data?</a>
+						</div>
+						<div id="collapseEleven" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<p>
+                                	To view a diagram of the data, click on one of the corresponding symbols below the map visualizing the different sensors.
+                                </p>
+                                <p>
+                                	In the diagram view you have the possibility to select a measurement period, as well as one, or for comparison purposes two different 
+                                	attributes (e.g. to get information about the relation between temperature and humidity).<br>You can choose between predefined measurement periods or a custom range.
+                                </p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwelve">How do I download the data?</a>
+						</div> 
+            			<div id="collapseTwelve" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<p> 
+									There are two ways to download the data you want.              
+								</p>
+								<p>
+									If you are already experienced in using a Sensor Observation Service you can write own requests to our SOS
+									<br/>
+									<b>http://giv-geosoft2d.uni-muenster.de/istsos/tnau_cbe?service=SOS </b> for tnau_cbe data or
+									<br/>
+									<b>http://giv-geosoft2d.uni-muenster.de/istsos/cosmcosm?service=SOS</b> for COSM data.
+									<br/>
+									You can find further information on how to do this  <a href="http://istgeo.ist.supsi.ch/software/istsos/examples.html" target="_blank">here</a>
+								</p>
+								<br/>
+								<p>
+									The easy but very basic way to download data is clicking the download button and selecting the service 
+									(e.g. tnau_cbe or Air Quality Egg) and the measuring station you want. 
+									Then you only need to choose the observed property you want and a time frame.
+									After clicking submit your can select the output format you prefer. A getObservation request 
+									is automatically generated and you get your data.
+								</p>
+							</div>
+						</div>
+					</div> 
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThirteen">What do I have to do to run my own QualitySCHU server?</a>
+						</div> 
+            			<div id="collapseThirteen" class="accordion-body collapse">
+							<div class="accordion-inner">
+							<p> 
+								Read the <a href="instman.html" target="_blank">installation manual</a>.              
+							</p>
+						</div>
+		    		</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+		<!-- getting started Modal -->
+		<div id="getstartModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="getstartModalLabel" aria-hidden="true">
+	    	<div class="modal-header">
+	    		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    		<h3 id="getstartModalLabel">Getting started</h3>
+	    	</div>
+	    	<div class="modal-body">
+		    	<div class="accordion" id="accordion3">
+			    	<div class="accordion-group">
+				    	<div class="accordion-heading">
+					    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collOne">Chapter 1: The starting screen</a>
+					    </div>
+					    <div id="collOne" class="accordion-body collapse">
+					        <div class="accordion-inner"> 
+                               	<p> 
+                               		At first you see the starting screen, which appears as the standard view after opening the web page.
+                               	</p>
+                               	<p>
+                               		The screen of the web page is basically divided into three elements.
+                               	</p>
+                               	<p>
+                               	In the center of the screen you can see a map<b>(1)</b> based on Open Street Map, on which measuring stations are visualized.
+                               	</p>
+                               	<p>
+                               	In the upper part of the page, a selection menu<b>(2)</b> is available, including the items Download, Getting Started, FAQ and About. 
+                               	</p>
+                               	<p>
+                               	In the lower part you can see a sensor bar<b>(3)</b>, which is used for the visualization of currently measured values of the selected station.
+                               		<!-- In the center of the screen you can see a map (based on Open Street Map), on which measuring stations are visualized.
+                               	</p>
+                               	<p>
+                               		In the upper part of the page, a selection menu is available, including the items Download, Getting Started, FAQ and About. 
+                               	</p>
+                               	<p>
+                               		In the lower part you can see a sensor display, which is used for the visualization of currently measured values.
+                               	</p> -->
+								<p>
+								<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/getting_started_1.png"alt = "Diagram" />
+								</p>
+								<br/>
+                               	<p>
+                               	In order to download data, click on the menu item "Download" and follow the instructions in the download manager.
+                               	</p>
+                               	<p>
+                               		If you have questions to some topics of the project or you like to get some background information, click on the menu item "FAQ".
+                               		<br>Then a list appears with frequently asked questions concerning this project.
+                               	</p>
+                               	<p>
+                               		By clicking on each question its answer appears. 
+                               	</p>
+                               	<p> 
+                               		Click the exit button "x" to exit the window and you will return to the starting screen.
+                               	</p>
+                               	The menu item "About" gives a short overview of the project and the possibility to contact us. To have a look at it, click on the about button.<br>A window will appear. 
+                               	</p>
+                               	<p>
+                               	Click the exit button "x" and the window will disappear again.
+                                </p>
+                               	<!--	The menu item "About" gives a short overview of the project. To have a look at it, please 
+                               		click on the about button.<br>A popup window will appear. 
+                               	</p>
+                               	<p>
+                               		Have another click on the "About" button and the popup window will disappear again.
+                               </p> -->
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collTwo">Chapter 2: Map functions</a>
+						</div>
+						<div id="collTwo" class="accordion-body collapse">
+							<div class="accordion-inner">
+                                <p>
+                                	The map view provides several functions.
+                                </p>
+                                <p> 
+                                	In order to zoom into the map, click on the "+" button. 
+                                </p>
+                                <p>
+                                	In the same way you can click on the "-" button to zoom out of the map. 
+                                </p>
+                                <p>
+                                	Alternatively you can use the scroll wheel of your computer mouse to zoom in and out of the map.
+                                </p>
+                                <p>
+                                	To move the map, you can click the left mouse button and move it in a direction you like to.
+                                </p>
+                                <p>
+                                	As you can see, several different objects are displayed on the map.
+                                </p>
+                                <p>
+                                The circles containing a number<b>(1)</b>, describe a clustering of symbols. A cluster concentrates
+                                various symbols, which are in close proximity. The different colour results out of the fact
+                                that a clustering of up to 9 symbols is visualized by a green circle, 10 or more clustered
+                                symbols by a yellow circle.
+                                </p>
+                                <p>
+                                As an alternative to a direct zoom into the map, a click on the circle also causes a change in scale.
+                                </p>
+                                <p>
+                                You can choose two different types of symbols on the map.
+                                </p>
+                                <p>
+                                The icon in shape of an egg<b>(2)</b> refers to air quality egg data measuring stations, which have been placed there,
+                                the icon in shape of a radio tower<b>(3)</b> refers to tnau_cbe stations.
+                                </p>
+                                <p>
+                                You can click on each of the icons. After doing so, currently measured values of the selected station<b>(2)</b> will be
+                                displayed below the map<b>(4)</b>.
+                                </p>
+								<br/>
+								<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/getting_started_2.png"alt = "getting_started" />
+								</div>
+							</div>
+						</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collThree">Chapter 3: The AQE sensor bar</a>
+						</div>
+						<div id="collThree" class="accordion-body collapse">
+							<div class="accordion-inner">
+                                <p>
+                                After clicking on a symbol (either air quality eggs or tnau_cbe stations) you notice that 
+                                in the sensor bar in the lower part of the page some values appeared.<br>They show the most recent 
+                                values measured by the selected station.
+                                </p>
+                                <p>
+							    If you like to view additional information about the selected station  (e.g. metadata,tables and diagrams), click on one of the icons in the lower part of the map.<br>Here you have the choice to select any of the symbols.<br>Each symbol will open the same window with the same functionalities. 
+							    </p>   
+								<p>
+								If you click on one of the icons without having selected a measuring station before, an error message will appear, giving you the advice to select a measuring station.
+								</p> 
+								<p>
+								As it is handled differently, the further steps after choosing an air quality egg or tnau_cbe stations will be explained separately.
+								</p>
+								<p>
+								In the case you first chose an air quality egg and clicked on a symbol in the sensor bar, a window opens, 
+								which contains three pages ("Home", "Table" and "Diagram"). 
+								</p>
+								<p>
+								As a default, you see a page called "Home", where you can view some metadata about the egg you selected. 
+								</p>
+								<p>
+								There are also links available, leading you to the Cosm home page.<br>One for the creator 
+								(providing you with current data from all the air quality eggs which are available), another for the Cosm feed 
+								(providing you with current data from the egg you chose).
+								</p>
+								<p>
+								<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/getting_started_home.png"alt = "getting_started" />
+								</p>
+								<p>
+								<br/>
+								In the table section you can see a table of the data, comprising all the sensor data available from the egg. 
+								</p>
+								<p>
+								You can choose a period of time, from which you like to view data by clicking on one of the predefined time periods or 
+								enter a custom period.
+								</p>
+								<p>
+								Each data value you can see for the different sensors is marked whether it is rawdata, an outlier or no outlier.
+								<br>You can distinguish them by the different colors used for the different categories.
+								</p>
+								<p>
+								<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/getting_started_table.png"alt = "Diagram" />
+								</p>
+								<p>
+								<br/>
+								In the diagram view you also can choose a period of time.
+								</p>
+								<p>
+								Furthermore you can choose the attributes (either one or two different), which should be displayed.
+								<br>If you select two different attributes, it is easier to understand relations between attribute values.
+								</p>
+                                <p>
+								<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/getting_started_diagram.png"alt = "Diagram" />
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collFour">Chapter 4: The tnau_cbe sensor bar</a>
+						</div>
+						<div id="collFour" class="accordion-body collapse">
+							<div class="accordion-inner">
+                                				<p>
+								In case you first chose the a tnau_cbe station, you will notice that additional symbols will be 
+								displayed in the sensor bar.<br>That is because the tnau_cbe stations are equipped with additional 
+								sensors for measuring air quality. 
+								</p>
+								<p>
+                				<img src = "https://raw.github.com/mpfeil/qualitySCHU/master/Screenshots/getting_started_ch4.png"alt = "Diagram" />
+								</p> 
+								<p>
+								Here, in the same way as described before, you can click on any symbol in the sensor bar and again 
+								a window opens. 
+								</p>
+								<p>
+								The window for the tnau_cbe stations is structured in the same way as it has been for the air quality eggs 
+								("Home", "Table" and "Diagram"). 
+								</p>
+								<p>
+								You may notice that the metadata will differ and that there is a picture added of each station. 
+								</p>
+								<p>
+								There are also links, which will lead you to the tnau_cbe homepage, providing you with further information 
+								about the station and the measurements. 
+								</p>
+								<p>
+								The table- and the diagram view can be used in the same way, except that there are additional values, 
+								which can be visualized.
+								</p>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+			
+		<!-- Overview modal -->
+		<div id="overviewModal" class="modal hide fade" modalOverflow="true" tabindex="-1" data-width="760">
+    		<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    			<h3 id="overviewModalLabel">
+    			</h3>
+    		</div>
+    		<div class="modal-body">
+    			<ul id="overviewModalTabs" class="nav nav-tabs">
+		    		<li><a href="#home" data-toggle="tab">Home</a></li>
+		    		<li id="tableTab"><a id="tableTabContent" href="#table" data-toggle="tab">Table</a></li>
+		    		<li id="diagramTab"><a id="diagramTabContent" href="#diagram" data-toggle="tab">Diagram</a></li>
+		    	</ul>
+		    	<div id="overviewModalTabsContent" class="tab-content">
+		    		<div class="tab-pane fade in" id="home">
+		    		</div>
+		    		<div class="tab-pane fade in" id="table">
+		    			<div class="row-fluid">
+			    			<div class="span6">
+			    				<h4>Period Of Time</h4>
+			    				<div id="reportrangetable" class="pull-left">
+								    <i class="icon-calendar icon-large"></i>
+								    <span></span> <b class="caret"></b>
+								</div>
+						    </div>
+						    <div class="span6">
+						    </div>
+						</div>
+						<hr>
+		    			<table class="table" id="dataTable">
+			    			<thead id="tablehead">
+			    			</thead> 
+			    			<tbody id="tablebody">
+			    			</tbody>
+		    			</table>
+		    		</div>
+		    		<div class="tab-pane fade-in" id="diagram">	
+		    			<div class="row-fluid">
+			    			<div class="span6">
+			    				<h4>Period Of Time</h4>
+			    				<div id="reportrangediagram" class="pull-left">
+								    <i class="icon-calendar icon-large"></i>
+								    <span></span> <b class="caret"></b>
+								</div>
+						    </div>
+						    <div class="span6">
+						    	<h4>Attribute</h4>
+						    	<div class="btn-group" id="multiselect" data-toggle="button">
+								 	<a id="dropdown-multiselect" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								    	None selected
+								    	<span class="caret"></span>
+								  	</a>
+								  	<ul id="multiselect-menu" class="dropdown-menu dropdown-menu-form">
+								  	</ul>
+								</div>
+							</div>
+						</div>	    			
+			            <hr>
+
+			            <div id="chartContainer" style="width: 100%; height: 300px;">
+			            </div>
+		    		</div>
+		    	</div>
+			</div>
+		    <div class="modal-footer">
+		    	<div class="row-fluid" style="visibility:hidden;" id="modalFooter">
+		    		<div class="pull-left">
+		    			<span class="label label-warning" id="dataAvailable" style="visibility:hidden;"></a>No data available!</span>
+		    		</div>
+		    		<div class="pull-right">
+		    			<span class="label label-warning"></a>Raw data</span>
+		    			<span class="label label-success"></a>Not outlier</span>
+		    			<span class="label label-important"></a>Outlier</span>
+		    		</div>
+		    	</div>
+		    </div>
+		</div>  
+
+		<!-- About Modal -->
+		<div id="aboutModal" class="modal hide fade" modalOverflow="true" tabindex="-1" data-width="760">
+    		<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    			<h3 id="aboutModalLabel">
+    				About
+    			</h3>
+    		</div>
+    		<div class="modal-body">
+    			<h4>Description</4>
+    				<p>
+    					<h6>
+    						qualitySCHU is a project developed by students at ifgi, Münster, which allows everyone to retrieve and visualize air quality data captured by so called air quality eggs, as well as data provided by a german state agency called tnau_cbe. The project name qualitySCHU 
+                        	refers to the egyptian deity called Schu. In the Egyptian mythology Schu was considered as a personification of air.
+                        </h6>
+    				</p>
+    			<hr>
+    			<h4>Icons</h4>
+    			<p>
+    				<a href="http://thenounproject.com/noun/temperature/#icon-No7810" target="_blank">Temperature</a> designed by <a href="http://thenounproject.com/asher84" target="_blank">Ashley Reinke</a> from The Noun Project
+    			</p>
+    			<p>
+    				<a href="http://thenounproject.com/noun/profile-information/#icon-No7148" target="_blank">Profile Information</a> designed by <a href="http://thenounproject.com/marc_io" target="_blank">Márcio Duarte</a> from The Noun Project
+    			</p>
+    			<p>
+    				<a href="http://thenounproject.com/noun/beaker/#icon-No9665" target="_blank">Beaker</a> designed by <a href="http://thenounproject.com/monstercritic" target="_blank">Sergey Shmidt</a> from The Noun Project	
+    			</p>	
+    			<p>
+    				<a href="http://thenounproject.com/noun/test-tube/#icon-No7428" target="_blank">Test Tube</a> designed by <a href="http://thenounproject.com/imbenton" target="_blank">Benton Rochester</a> from The Noun Project
+    			</p>
+    			<p>
+    				<a href="http://thenounproject.com/noun/fog/#icon-No2605" target="_blank">Fog</a> designed by <a href="http://thenounproject.com/adamwhitcroft" target="_blank">Adam Whitcroft</a> from The Noun Project
+    			</p>
+    			<p>
+    				<a href="http://thenounproject.com/noun/globe/#icon-No11172" target="_blank">Globe</a> designed by <a href="http://thenounproject.com/Doug Cavendish" target="_blank">Doug Cavendish</a> from The Noun Project
+    			</p>
+    			<p>
+    				<a href="http://thenounproject.com/noun/windsock/#icon-No614" target="_blank">Windsock</a>  from The Noun Project
+    			</p>
+    			<p>
+    				<a href="http://thenounproject.com/noun/download/#icon-No6080" target="_blank">Download</a> designed by <a href="http://thenounproject.com/Luis" target="_blank">Luis Prado</a> from The Noun Project
+    			</p>
+			</div>
+		    <div class="modal-footer">
+		    	<div class="pull-left">
+   					<p>&copy; 2012-2013 ifgi</p>
+   				</div>
+   				<div class="pull-right">
+   					<a href="mailto:qualityschu@uni-muenster.de?Subject=Question">Contact us!</a>
+   				</div
+		    </div>
+		</div>  
+    
+    	<!-- Le javascript
+    	================================================== -->
+    	<!-- Placed at the end of the document so the pages load faster -->
+    	<script src="http://code.jquery.com/jquery-latest.js"></script>
+    	<script src="js/bootstrap/js/bootstrap.js"></script>
+    	<script src="js/daterangepicker/date.js"></script>
+ 	    <script src="js/daterangepicker/daterangepicker.js"></script>
+ 	    <script src="js/bigmodal/js/bootstrap-bigmodal.js"></script>
+ 	    <script src="js/select2/select2.js"></script>
+    	<script src="js/leaflet/dist/leaflet.js"></script>
+    	<script src="js/canvasjs/canvasjs.min.js"></script>
+    	<script src="js/leaflet/markercluster/dist/leaflet.markercluster-src.js"></script>
+    	<script src="http://d23cj0cdvyoxg0.cloudfront.net/cosmjs-1.0.0.min.js"></script> 
+    	<script src="js/bootstrap-wizard/src/bootstrap-wizard.js"></script>
+    	<script src="js/spin.js"></script>
+    	<script src="js/leaflet.spin.js"></script>
+    	<script src="js/map.js"></script>
+    	<script src="js/menu.js"></script>
+	</body>
+</html>
